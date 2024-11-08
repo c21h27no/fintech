@@ -26,6 +26,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install dependencies
+        run: npm run prepare
+
       - name: build
         env:
           BASE_PATH: '/${{ github.event.repository.name }}'
