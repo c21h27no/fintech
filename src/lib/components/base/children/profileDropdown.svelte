@@ -62,7 +62,7 @@
 					{/each}
 					<hr class="my-3" />
 					<li class="flex flex-col gap-5">
-						<a href="logout" class="flex items-center gap-2 rounded px-2 py-2 transition duration-200 hover:bg-gray-100">
+						<a href="account/logout" class="flex items-center gap-2 rounded px-2 py-2 transition duration-200 hover:bg-gray-100">
 							<Icons name="account/logout" class="size-4 text-gray-500" />
 							<span class="text-sm font-medium">logout</span>
 						</a>

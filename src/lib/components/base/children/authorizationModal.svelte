@@ -12,16 +12,11 @@
 	let active = $state(false);
 	let value: any = $state('this_email@gmail.com');
 
-	const submitFunction: SubmitFunction = async ({ formData }) => {
-		// Get the message to signed based on the current address connected.
-		// Then show the pop-up from the wallet (metamask) to sign the message.
-		// If the user cancel/reject to sign the message, the submit is cancelled (no sign-in or sign-up).
+	const submitFunction: SubmitFunction = () => {
 		loading = true;
-
 		return async ({ result, update }) => {
-			if (result.type) {
-				update();
-			}
+			await update({ reset: false });
+			loading = false;
 		};
 	};
 </script>
@@ -38,7 +33,7 @@
 						<span class="text-sm"
 							>We will send the code or call you. You do not need to answer the call. The code can be sent to your mailbox
 							or by SMS</span>
-						<form action="/api/auth?/login" method="POST" class="flex flex-col gap-3" use:enhance={submitFunction}>
+						<form action="/api?/login" method="POST" class="flex flex-col gap-3" use:enhance={submitFunction}>
 							<Input id="email" class="block h-12 w-full" type="email" name="email" bind:value required />
 							<div class="flex items-center justify-between text-xs">
 								<Checkbox id="remember" name="remember" bind:checked>Remember me?</Checkbox>

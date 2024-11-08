@@ -16,7 +16,7 @@ export const authHandler: Handle = async ({ event, resolve }) => {
 const accessHandler: Handle = async ({ event, resolve }) => {
 	if (dev) console.log('HOOKS > ', event.request.method, event.route.id);
 
-	if (event.route.id?.startsWith('/(account)/')) {
+	if (event.route.id?.startsWith('/account')) {
 		if (event.cookies.get('account')) {
 			return resolve(event);
 		} else {

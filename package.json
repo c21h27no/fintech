@@ -4,15 +4,16 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "vite build && npm run package",
 		"preview": "vite preview",
-		"test": "npm run test:integration && npm run test:unit",
+		"package": "svelte-kit sync && svelte-package && publint",
+		"prepublishOnly": "npm run package",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
-		"test:integration": "playwright test",
+		"lint": "prettier --check . && eslint .",
 		"test:unit": "vitest",
+		"test": "npm run test:unit -- --run",
 		"deploy": "npm install gh-pages && gh-pages -d build -t true"
 	},
 	"devDependencies": {
