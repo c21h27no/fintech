@@ -19,9 +19,9 @@ const config = {
 			precompress: false,
 			strict: false
 		}),
-		// paths: {
-		// 	base: dev ? '': process.env.BASE_PATH
-		// },
+		paths: {
+			base: dev ? '': process.env.BASE_PATH
+		},
 		csrf: {
 			checkOrigin: true
 		},
