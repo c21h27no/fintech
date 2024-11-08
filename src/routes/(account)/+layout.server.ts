@@ -9,3 +9,5 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
 		account: cookies.get('account')
 	};
 };
+export const prerender = true;
+export const ssr = true;
