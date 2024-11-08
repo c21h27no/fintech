@@ -1,7 +1,8 @@
-import type { LayoutServerLoad } from './$types';
-
 export const prerender = true;
-export const ssr = true;
+export const trailingSlash = 'always';
+
+
+import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async ({ cookies }) => {
 	return {
