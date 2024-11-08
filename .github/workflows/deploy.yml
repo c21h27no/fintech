@@ -1,67 +1,47 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Build and Deploy to Pages
 
 on:
   push:
-    branches: 
-      - 'main' 
+    branches: ['main']
+
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
-    permissions:
-      pages: write
-      id-token: write
-
     steps:
-      # Checkout code
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # Install pnpm
-      - name: Install pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 8
-
-      # Cache dependencies
-      - name: Cache pnpm dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-
-      # Install Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+        id: pages
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-
-      # Install dependencies
-      - name: Install dependencies
-        run: pnpm install
-
-      # Build site
-      - name: Build site
-        env:
-          BASE_PATH: "/${{ github.event.repository.name }}"
-        run: pnpm run build
-
-      # Upload Artifacts (the build output)
-      - name: Upload build artifact
+          cache: 'npm'
+      - run: npm i
+      - run: npm run build
+      - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './build'  # Ensure this is the correct build output folder
+          path: ./app
 
-      # Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-
-    # Set up the environment for GitHub Pages
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment
