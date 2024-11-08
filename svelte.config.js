@@ -15,8 +15,8 @@ const config = {
 		adapter: adapter({
 			pages: 'build',
 			assets: 'build',
-			// precompress: false,
-			// strict: false
+			precompress: false,
+			strict: false
 		}),
 		csrf: {
 			checkOrigin: true

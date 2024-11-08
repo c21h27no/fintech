@@ -4,6 +4,7 @@ import generateUUID from 'utils/services/generateUUID';
 
 export const load: PageServerLoad = async ({ request }) => {
 	// console.log(request);
+	return request
 };
 
 export const actions = {
@@ -12,7 +13,7 @@ export const actions = {
 		const email = data.get('email');
 		const checkbox = data.get('remember');
 
-		const account: { uuid: any; email: string; remember: any; status: any } = {
+		const account: { uuid: any; email: any; remember: any; status: any } = {
 			uuid: generateUUID(),
 			email: email,
 			remember: checkbox,
