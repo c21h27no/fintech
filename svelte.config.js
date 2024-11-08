@@ -1,3 +1,4 @@
+import { dev } from '$app/environment';
 import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import path from 'path';
@@ -18,6 +19,9 @@ const config = {
 			precompress: false,
 			strict: false
 		}),
+		paths: {
+			base: dev ? '': process.env.BASE_PATH
+		},
 		csrf: {
 			checkOrigin: true
 		},
